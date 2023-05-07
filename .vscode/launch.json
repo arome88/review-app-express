@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type": "chrome",
+            "name": "mongodb+srv://anaromero88:w4F6G35CJ8TYbnIH@cluster0.8nlnbg9.mongodb.net/",
+            "request": "launch",
+            "url": "mongodb+srv://anaromero88:w4F6G35CJ8TYbnIH@cluster0.8nlnbg9.mongodb.net/"
+        }
+    ]
+}

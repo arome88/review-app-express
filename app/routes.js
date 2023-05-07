@@ -1,3 +1,5 @@
+const { sum } = require("lodash");
+
 module.exports = function(app, passport, db) {
 
 // normal routes ===============================================================
@@ -29,7 +31,7 @@ module.exports = function(app, passport, db) {
 // message board routes ===============================================================
 
     app.post('/messages', (req, res) => {
-      db.collection('messages').save({name: req.body.name, msg: req.body.msg, thumbUp: 0, thumbDown:0}, (err, result) => {
+      db.collection('messages').save({restaurant: req.body.restaurant, review: req.body.review}, (err, result) => {
         if (err) return console.log(err)
         console.log('saved to database')
         res.redirect('/profile')
@@ -37,26 +39,32 @@ module.exports = function(app, passport, db) {
     })
 
     app.put('/messages', (req, res) => {
+      
       db.collection('messages')
-      .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
+      .findOneAndUpdate({restaurant: req.body.restaurant},{
         $set: {
-          thumbUp:req.body.thumbUp + 1
+          review: req.body.review,
         }
       }, {
         sort: {_id: -1},
-        upsert: true
+        // upsert: true
       }, (err, result) => {
         if (err) return res.send(err)
         res.send(result)
       })
     })
 
+
     app.delete('/messages', (req, res) => {
-      db.collection('messages').findOneAndDelete({name: req.body.name, msg: req.body.msg}, (err, result) => {
+      db.collection('messages').findOneAndDelete({restaurant: req.body.restaurant, review: req.body.review}, (err, result) => {
         if (err) return res.send(500, err)
         res.send('Message deleted!')
       })
     })
+
+ // ADDING TIPS ===============================================================
+
+   
 
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================
